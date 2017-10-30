@@ -1,0 +1,49 @@
+env:
+  # 環境変数設定
+  # デフォルト値-> TIMEBOOSTER_ARTIFACTS=/artifacts
+  # デフォルト値-> TIMEBOOSTER_BUILD_ID=一意に特定されるビルドID
+  variable:
+#    GRADLE_OPTS: -Dorg.gradle.daemon=true -Dorg.gradle.jvmargs="-Xmx32000m"
+#    JAVA_OPTS: -Dfile.encoding=UTF-8 -Xmx32000m
+#    JAVA_TOOL_OPTIONS: -Dfile.encoding=UTF-8 -Xmx32000m
+  # キャッシュディレクトリの登録
+  # キャッシュディレクトリはビルドマシン（APIキー）単位で共有される
+  # dockerの指定Pathに直接マウントされるため、同時書込み耐性については保証されない。
+  cache:
+    # - /root/.m2
+    # - /root/.gradle/caches/modules-2/files-2.1
+task:
+    # execは複数個登録できる
+    # 現状では逐次実行を前提とする
+    exec:
+      # `docker build -f 指定dockerfile .` を実行する
+      # リポジトリRootからの相対パスで記述する
+
+      # ビルド環境のセットアップを行なう
+      - dockerfile: ".timebooster/dockerfiles/go.dockerfile"
+        cmd:
+          - df -h
+          - echo ${TIMEBOOSTER_DEPLOY_SERVICE_ACCOUNT} | base64 -d > .timebooster/service-account.json
+          - echo ${FIREBASE_ADMIN_SERVICE_ACCOUNT} | base64 -d > server/gae/assets/firebase-admin.json
+          - chmod -R 755 .timebooster/scripts
+          - chmod -R 755 runner/scripts
+          - chmod -R 755 cli/scripts
+          - chmod -R 755 server/scripts
+      # tbrun / timeboosterコマンドをビルド
+      - dockerfile: ".timebooster/dockerfiles/go.dockerfile"
+        cmd:
+          - runner/scripts/build.sh
+          - cli/scripts/build.sh
+      # サーバービルド
+      - dockerfile: ".timebooster/dockerfiles/appengine.dockerfile"
+        cmd:
+          - server/scripts/build.sh
+      # ビルドしたコマンドラインをデプロイ
+      - dockerfile: ".timebooster/dockerfiles/appengine.dockerfile"
+        cmd:
+          - .timebooster/scripts/deploy-commands.sh
+      # サーバーをデプロイ
+      - dockerfile: ".timebooster/dockerfiles/appengine.dockerfile"
+        cmd:
+          - .timebooster/scripts/deploy-server.sh &> $TIMEBOOSTER_ARTIFACTS/server-deploy.txt
+# EOF

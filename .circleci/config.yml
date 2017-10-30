@@ -1,0 +1,47 @@
+# Circle CI側に次の環境変数を設定する必要がある
+# TIMEBOOSTER_PROJECT_ID : your-gcp-project
+# TIMEBOOSTER_ENDPOINT : GAE/GoのエンドポイントURL https://your-gcp-project.appspot.com
+# TIMEBOOSTER_API_KEY : GCPで発行したAPIキー
+# GITHUB_API_KEY : リポジトリアクセス用のAPIキー(https://github.com/settings/tokens/new)
+# githubのwebhookに https://your-gcp-project.appspot.com/api/v1/machine/boot?key=your-api-key を設定するとビルドマシン先行起動出来るためビルド時間を1分程度短縮できる
+# -env オプションを使用すると、指定した環境変数をビルド環境に再現する。
+# ここではServiceAccountのJSONファイルをCircleCIの環境変数に設定し、Timeboosterに引き渡している。
+version: 2
+jobs:
+  build:
+    docker:
+      - image: ubuntu:16.04
+        environment:
+          CIRCLE_ARTIFACTS: /tmp/artifacts
+    steps:
+      - checkout
+      - run:
+          name: build-by-timemachine
+          command: |
+            apt-get update > /dev/null
+            apt-get install -y unzip ca-certificates > /dev/null
+            chmod 755 .timebooster/timebooster
+            .timebooster/timebooster \
+                    -config .timebooster/timebooster.yml \
+                    -api-key ${TIMEBOOSTER_API_KEY} \
+                    -endpoint ${TIMEBOOSTER_ENDPOINT} \
+                    run \
+                    -repository ${CIRCLE_REPOSITORY_URL} \
+                    -github-access-token ${GITHUB_API_KEY} \
+                    -revision ${CIRCLE_SHA1} \
+                    -artifact ${CIRCLE_ARTIFACTS} \
+                    -env TIMEBOOSTER_DEPLOY_SERVICE_ACCOUNT \
+                    -env FIREBASE_ADMIN_SERVICE_ACCOUNT \
+                    -env TIMEBOOSTER_SERVICE_ACCOUNT \
+                    -env-from-circleci &&:
+            # timeboosterの結果を返却する
+            exit_code=$?
+
+            # collect artifacts
+            cd $CIRCLE_ARTIFACTS
+            unzip $CIRCLE_ARTIFACTS/*.zip > /dev/null
+            for file in `find art/ -name "exec-*.txt"`; do cat $file; done
+
+            exit $exit_code
+      - store_artifacts:
+          path: /tmp/artifacts

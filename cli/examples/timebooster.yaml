@@ -1,0 +1,25 @@
+env:
+  # 環境変数設定
+  # デフォルト値-> TIMEBOOSTER_ARTIFACTS=/artifacts
+  # デフォルト値-> TIMEBOOSTER_BUILD_ID=一意に特定されるビルドID
+  # variable:
+    # Foo: bar
+  # キャッシュディレクトリの登録
+  # キャッシュディレクトリはビルドマシン（APIキー）単位で共有される
+  # dockerの指定Pathに直接マウントされるため、同時書込み耐性については保証されない。
+  cache:
+    - /root/.m2
+    - /root/.gradle/caches/modules-2/files-2.1
+task:
+    # execは複数個登録できる
+    # 現状では逐次実行を前提とする
+    exec:
+      # `docker build -f 指定dockerfile .` を実行する
+      # リポジトリRootからの相対パスで記述する
+      - dockerfile: "dockerfiles/android-build.dockerfile"
+       # Dockerコンテナ内で実行されるスクリプト
+       # リポジトリルートがカレントディレクトリとして実行される
+       # /work/{リポジトリ名} にマウントされ、"cd /work/{リポジトリ名}"された状態で実行される
+       # 実行時の標準出力は"exec-xxx.txt"に保存され、アーティファクトの一つとして回収される
+        cmd:
+          - ./gradlew assemble

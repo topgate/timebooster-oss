@@ -1,0 +1,508 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "Timebooster ビルド管理サーバーAPI仕様\n",
+    "version" : "1.0",
+    "title" : "Timebooster / Wed Oct 25 08:41:16 UTC 2017"
+  },
+  "basePath" : "/api/v1",
+  "schemes" : [ "http", "https" ],
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "security" : [ {
+    "api_key" : [ ]
+  } ],
+  "paths" : {
+    "/builds" : {
+      "get" : {
+        "tags" : [ "build" ],
+        "description" : "指定条件のビルドを取得する\n",
+        "operationId" : "builds_get",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "query",
+          "description" : "クライアントの妥当性を検証するためのAPIKey\n\n発行されたAPIKey以外はAPIを呼び出すことはできない。\n",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "state",
+          "in" : "query",
+          "description" : "列挙するビルドステータス\n",
+          "required" : false,
+          "type" : "string",
+          "format" : "#/definitions/BuildState"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "条件に一致するビルドリスト\n",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/BuildInfo"
+              }
+            }
+          }
+        },
+        "security" : [ ]
+      },
+      "post" : {
+        "tags" : [ "build" ],
+        "description" : "新規にビルドを開始させる。\n",
+        "operationId" : "builds_post",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "query",
+          "description" : "クライアントの妥当性を検証するためのAPIKey\n\n発行されたAPIKey以外はAPIを呼び出すことはできない。\n",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "description" : "ビルド情報\n",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/BuildRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "登録されたビルドを追加する\n",
+            "schema" : {
+              "$ref" : "#/definitions/BuildInfo"
+            }
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/builds/{buildId}" : {
+      "get" : {
+        "tags" : [ "build" ],
+        "description" : "指定IDのビルドを取得する\n",
+        "operationId" : "builds_buildid_get",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "query",
+          "description" : "クライアントの妥当性を検証するためのAPIKey\n\n発行されたAPIKey以外はAPIを呼び出すことはできない。\n",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "buildId",
+          "in" : "path",
+          "description" : "ビルドID\n",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "ビルド情報\n",
+            "schema" : {
+              "$ref" : "#/definitions/BuildInfo"
+            }
+          }
+        },
+        "security" : [ ]
+      },
+      "patch" : {
+        "tags" : [ "build" ],
+        "description" : "指定IDのビルドを更新する\n",
+        "operationId" : "builds_buildid_patch",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "query",
+          "description" : "クライアントの妥当性を検証するためのAPIKey\n\n発行されたAPIKey以外はAPIを呼び出すことはできない。\n",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "buildId",
+          "in" : "path",
+          "description" : "ビルドID\n",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "newObject",
+          "description" : "差分更新するビルド情報\n\n値がsetされているパラメータのみを上書きする。\n変更不可なパラメータに対しては何も行なわない（エラーとも扱わない）\n",
+          "required" : true,
+          "schema" : {
+            "$ref" : "#/definitions/BuildInfo"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "ビルド情報\n",
+            "schema" : {
+              "$ref" : "#/definitions/BuildInfo"
+            }
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/builds/{buildId}/artifact" : {
+      "get" : {
+        "tags" : [ "build" ],
+        "description" : "指定IDのビルド成果物を取得する\n",
+        "operationId" : "builds_buildid_artifact_get",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "query",
+          "description" : "クライアントの妥当性を検証するためのAPIKey\n\n発行されたAPIKey以外はAPIを呼び出すことはできない。\n",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "buildId",
+          "in" : "path",
+          "description" : "ビルドID\n",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "302" : {
+            "description" : "ビルド成果物(GCSのダウンロードURLにリダイレクトされる)\n"
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/machine" : {
+      "get" : {
+        "tags" : [ "machine" ],
+        "description" : "APIキーに紐付いたビルドマシンを取得する\n",
+        "operationId" : "machine_get",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "query",
+          "description" : "クライアントの妥当性を検証するためのAPIKey\n\n発行されたAPIKey以外はAPIを呼び出すことはできない。\n",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "ビルドマシン情報\n",
+            "schema" : {
+              "$ref" : "#/definitions/MachineInfo"
+            }
+          }
+        },
+        "security" : [ ]
+      },
+      "post" : {
+        "tags" : [ "machine" ],
+        "description" : "APIキーに紐付いたビルドマシンを作成する\n既に作成済みの場合、何も行なわない\n",
+        "operationId" : "machine_post",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "query",
+          "description" : "クライアントの妥当性を検証するためのAPIKey\n\n発行されたAPIKey以外はAPIを呼び出すことはできない。\n",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "in" : "body",
+          "name" : "payload",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/MachineRequest"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "ビルドマシン情報\n",
+            "schema" : {
+              "$ref" : "#/definitions/MachineInfo"
+            }
+          }
+        },
+        "security" : [ ]
+      },
+      "delete" : {
+        "tags" : [ "machine" ],
+        "description" : "APIキーに紐付いたビルドマシンを削除する\n",
+        "operationId" : "machine_delete",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "query",
+          "description" : "クライアントの妥当性を検証するためのAPIKey\n\n発行されたAPIKey以外はAPIを呼び出すことはできない。\n",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "ステータスコードのみを返却する\n"
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/machine/startupscript" : {
+      "get" : {
+        "tags" : [ "machine" ],
+        "description" : "APIキーに紐付いたビルドマシン用の起動スクリプトを取得する\n",
+        "operationId" : "machine_startupscript_get",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "query",
+          "description" : "クライアントの妥当性を検証するためのAPIKey\n\n発行されたAPIKey以外はAPIを呼び出すことはできない。\n",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "ビルドマシン用の起動スクリプトがplain-textで返却される\n"
+          }
+        },
+        "security" : [ ]
+      },
+      "post" : {
+        "tags" : [ "machine" ],
+        "description" : "APIキーに紐付いたビルドマシン用の起動スクリプトを設定する。\n",
+        "operationId" : "machine_startupscript_post",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "query",
+          "description" : "クライアントの妥当性を検証するためのAPIKey\n\n発行されたAPIKey以外はAPIを呼び出すことはできない。\n",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "script",
+          "in" : "formData",
+          "description" : "起動時の実行スクリプト\n",
+          "required" : true,
+          "type" : "string",
+          "minLength" : 1
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "登録に成功した場合ステータスコードのみを返却する\n"
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/machine/boot" : {
+      "post" : {
+        "tags" : [ "machine" ],
+        "description" : "APIキーに紐付いたビルドマシン用を起動する。\n主にgithubのpushに反応し、事前にビルドマシンを起動するために使用する。\n",
+        "operationId" : "machine_boot_post",
+        "parameters" : [ {
+          "name" : "key",
+          "in" : "query",
+          "description" : "クライアントの妥当性を検証するためのAPIKey\n\n発行されたAPIKey以外はAPIを呼び出すことはできない。\n",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "登録に成功した場合ステータスコードのみを返却する\n"
+          }
+        },
+        "security" : [ ]
+      }
+    },
+    "/debug/swagger" : {
+      "get" : {
+        "tags" : [ "debug" ],
+        "description" : "swagger.json\n",
+        "operationId" : "debug_swagger_get",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "swagger.json\n"
+          }
+        },
+        "security" : [ ]
+      }
+    }
+  },
+  "securityDefinitions" : {
+    "api_key" : {
+      "type" : "apiKey",
+      "name" : "key",
+      "in" : "query"
+    }
+  },
+  "definitions" : {
+    "MachineRequest" : {
+      "type" : "object",
+      "properties" : {
+        "zone" : {
+          "type" : "string",
+          "description" : "作成されるZone指定\nデフォルトでは \"us-central1-b\" が使用される\n"
+        },
+        "cpu" : {
+          "type" : "integer",
+          "description" : "リクエストされるvCPU数\nデフォルトで24 vCPU使用される\n"
+        },
+        "ram" : {
+          "type" : "number",
+          "description" : "リクエストされるRAM(GB)\nデフォルトで64GB使用される\n"
+        },
+        "storage" : {
+          "type" : "number",
+          "description" : "リクエストされるストレージ容量(GB)\nデフォルトで48GB使用される\n"
+        }
+      },
+      "description" : "ビルドマシンのスペック要求\n"
+    },
+    "MachineState" : {
+      "type" : "string",
+      "description" : "ビルドマシンの現在の状態\n",
+      "enum" : [ "Running", "Shutdown", "None" ]
+    },
+    "MachineInfo" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "一意に割り当てられるビルドマシンID\n"
+        },
+        "state" : {
+          "$ref" : "#/definitions/MachineState"
+        },
+        "Zone" : {
+          "type" : "string",
+          "description" : "マシンが配置されているZone\nZoneを移行する場合は削除 -> 再生成をメンテナンスする必要がある。\n"
+        }
+      },
+      "description" : "ビルドマシン情報\n\nAPIキーごとに1ビルドマシンが割り当てられる。\nそのため、API的にはビルドマシンは1つとなる。\n"
+    },
+    "BuildRepository" : {
+      "type" : "object",
+      "properties" : {
+        "git" : {
+          "type" : "string",
+          "description" : "gitリポジトリのpathを示す。\ngit cloneとして有効な値が設定される。\n"
+        },
+        "gitRevision" : {
+          "type" : "string",
+          "description" : "gitリポジトリのcheckout対象を示す。\ngit checkout として有効な値が設定される。\ncheckoutできれば良いので、branchやtagも可能。\n"
+        }
+      },
+      "description" : "ビルド対象のソースリポジトリを示す\n"
+    },
+    "EnvironmentValue" : {
+      "type" : "object",
+      "required" : [ "name", "value" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "環境変数名\n"
+        },
+        "value" : {
+          "type" : "string",
+          "description" : "環境変数値\n"
+        }
+      },
+      "description" : "環境変数を示すオブジェクト\n"
+    },
+    "BuildRequest" : {
+      "type" : "object",
+      "required" : [ "config" ],
+      "properties" : {
+        "repository" : {
+          "$ref" : "#/definitions/BuildRepository"
+        },
+        "config" : {
+          "type" : "string",
+          "description" : "ビルド設定を記述した \"timebooster.yml\" 本体情報\n"
+        },
+        "environment" : {
+          "type" : "array",
+          "description" : "コンテナに適用する環境変数一覧\nconofigファイルの記述と両方が適用される。\n同じ設定を複数箇所に記述した場合の挙動はDockerのenvオプションに従う。\n",
+          "items" : {
+            "$ref" : "#/definitions/EnvironmentValue"
+          }
+        }
+      },
+      "description" : "1ビルドリクエストを示す\n"
+    },
+    "BuildState" : {
+      "type" : "string",
+      "description" : "現在のビルド状態を示す\n",
+      "enum" : [ "Pending", "Building", "Timeout", "Failed", "Completed" ]
+    },
+    "BuildInfo" : {
+      "type" : "object",
+      "required" : [ "config", "id" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "一意にサーバーで割り当てられたID\n"
+        },
+        "state" : {
+          "$ref" : "#/definitions/BuildState"
+        },
+        "repository" : {
+          "$ref" : "#/definitions/BuildRepository"
+        },
+        "config" : {
+          "type" : "string",
+          "description" : "ビルド設定を記述した \"timebooster.yml\" 本体情報\n"
+        },
+        "startDate" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ビルド開始日時（Unixミリ秒）\n"
+        },
+        "environment" : {
+          "type" : "array",
+          "description" : "コンテナに適用する環境変数一覧\nconofigファイルの記述と両方が適用される。\n同じ設定を複数箇所に記述した場合の挙動はDockerのenvオプションに従う。\n",
+          "items" : {
+            "$ref" : "#/definitions/EnvironmentValue"
+          }
+        }
+      },
+      "description" : "現在のビルド情報を示す\n"
+    },
+    "BuildLog" : {
+      "type" : "object",
+      "required" : [ "date", "index", "text" ],
+      "properties" : {
+        "index" : {
+          "type" : "integer",
+          "description" : "ログ番号（1ビルドごとに連番で生成される）\n"
+        },
+        "date" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "ログ時刻(Unixミリ秒)\n"
+        },
+        "text" : {
+          "type" : "string",
+          "description" : "1行ログ\n"
+        }
+      },
+      "description" : "ビルドのコマンドラインログを示す。\n1行ごとに1オブジェクトが生成される。\n"
+    },
+    "ApiError" : {
+      "type" : "object",
+      "required" : [ "code", "message" ],
+      "properties" : {
+        "code" : {
+          "type" : "string",
+          "enum" : [ "NotImplements", "AuthFailed", "DataConflict", "DataModifyFailed", "ParameterError", "Unknown" ]
+        },
+        "message" : {
+          "type" : "string"
+        }
+      },
+      "description" : "APIのエラーを定義する。\n\nAPI実行失敗時、2xx以外のステータスの場合は必ずこのModelを返却する。\n"
+    }
+  },
+  "parameters" : {
+    "api_key" : {
+      "name" : "key",
+      "in" : "query",
+      "description" : "クライアントの妥当性を検証するためのAPIKey\n\n発行されたAPIKey以外はAPIを呼び出すことはできない。\n",
+      "required" : true,
+      "type" : "string"
+    },
+    "queue_retry_count" : {
+      "name" : "X-AppEngine-TaskRetryCount",
+      "in" : "header",
+      "description" : "GAE/Go標準TaskQueueの実行数\n",
+      "required" : false,
+      "type" : "integer"
+    }
+  }
+}

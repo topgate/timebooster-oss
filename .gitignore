@@ -1,0 +1,28 @@
+# システムディレクトリ, システムファイル
+.gopath/
+build/
+.idea/
+.DS_Store
+Thumbs.db
+*.iml
+.timebooster/service-account.json
+
+# 成果物ディレクトリ
+ci-release/
+
+# 中間ファイル
+bin
+local.properties
+obj/
+dependencies.txt
+
+# 外部ライブラリ
+# 必要に応じてsyncする
+private/
+out/
+*.exe
+*.db
+/repo/*.json
+tbrun
+firebase-admin.json
+deploy/deploy.yaml

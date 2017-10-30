@@ -1,0 +1,109 @@
+{
+  "Repositories": [
+    {
+      "ImportPath": "cloud.google.com/go",
+      "Rev": "2f1da830aa128621a5d733b385d25aa6641269c8",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/dgrijalva/jwt-go",
+      "Rev": "2268707a8f0843315e2004ee4f1d021dc08baedf",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/eaglesakura/gaefire",
+      "Rev": "da90c5fd76c6706936266e4d6feec055513ea87b",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/eaglesakura/swagger-go-core",
+      "Rev": "5afa48b188d40455feddf86739a39369131d0257",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/go-yaml/yaml",
+      "Rev": "cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/golang/protobuf",
+      "Rev": "2bba0603135d7d7f5cb73b2125beeda19c09f4ef",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/googleapis/gax-go",
+      "Rev": "9af46dd5a1713e8b5cd71106287eba3cefdde50b",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/gorilla/context",
+      "Rev": "08b5f424b9271eedf6f9f0ce86cb9396ed337a42",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/gorilla/mux",
+      "Rev": "4c1c3952b7d9d0a061a3fa7b36fd373ba0398ebc",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/mjibson/goon",
+      "Rev": "ce6c18b635bb36342c10a151f79983efd70f96d6",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/stretchr/testify",
+      "Rev": "4d4bfba8f1d1027c4fdbe371823030df51419987",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "golang.org/x/net",
+      "Rev": "da118f7b8e5954f39d0d2130ab35d4bf0e3cb344",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "golang.org/x/oauth2",
+      "Rev": "ad516a297a9f2a74ecc244861b298c94bdd28b9d",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "golang.org/x/text",
+      "Rev": "470f45bf29f4147d6fbd7dfd0a02a848e49f5bf4",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "google.golang.org/api",
+      "Rev": "fbbaff1827317122a8a0e1b24de25df8417ce87b",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "google.golang.org/appengine",
+      "Rev": "170382fa85b10b94728989dfcf6cc818b335c952",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "google.golang.org/cloud",
+      "Rev": "2f1da830aa128621a5d733b385d25aa6641269c8",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "google.golang.org/genproto",
+      "Rev": "411e09b969b1170a9f0c467558eb4c4c110d9c77",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "google.golang.org/grpc",
+      "Rev": "a0c3e72252b6fbf4826bb143e450eb05588a9d6d",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "gopkg.in/check.v1",
+      "Rev": "20d25e2804050c1cd24a7eea1e7a6447dd0e74ec",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "gopkg.in/yaml.v2",
+      "Rev": "cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b",
+      "Lang": "golang"
+    }
+  ]
+}

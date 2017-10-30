@@ -1,0 +1,39 @@
+{
+  "Repositories": [
+    {
+      "ImportPath": "github.com/eaglesakura/swagger-go-core",
+      "Rev": "9cf1b9a4c54877239255fc2eb1326a45ac7c6640",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/go-yaml/yaml",
+      "Rev": "cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/gorilla/mux",
+      "Rev": "4c1c3952b7d9d0a061a3fa7b36fd373ba0398ebc",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/stretchr/testify",
+      "Rev": "4d4bfba8f1d1027c4fdbe371823030df51419987",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/urfave/cli",
+      "Rev": "8ba6f23b6e36d03666a14bd9421f5e3efcb59aca",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "gopkg.in/check.v1",
+      "Rev": "20d25e2804050c1cd24a7eea1e7a6447dd0e74ec",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "gopkg.in/yaml.v2",
+      "Rev": "cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b",
+      "Lang": "golang"
+    }
+  ]
+}

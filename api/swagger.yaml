@@ -1,0 +1,474 @@
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "1.0"
+  title: "Timebooster / __GENERATED_DATE__"
+  description: |
+    Timebooster ビルド管理サーバーAPI仕様
+
+schemes:
+  - http
+  - https
+
+#host: __HTTP_HOST__
+
+basePath: /api/v1
+consumes:
+  - application/json
+produces:
+  - application/json
+security:
+- api_key: []
+
+paths:
+
+################################################################################
+#
+# Build API
+#
+################################################################################
+
+  /builds:
+    get:
+      tags: [build]
+      security: []
+      description: |
+        指定条件のビルドを取得する
+      parameters:
+        - $ref : "#/parameters/api_key"
+        - name: state
+          description: |
+            列挙するビルドステータス
+          in: query
+          type: string
+          format: "#/definitions/BuildState"
+      responses:
+        "200":
+          description: |
+            条件に一致するビルドリスト
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/BuildInfo"
+    post:
+      tags: [build]
+      security: []
+      description: |
+        新規にビルドを開始させる。
+      parameters:
+        - $ref : "#/parameters/api_key"
+        - name: payload
+          in: body
+          description: |
+            ビルド情報
+          required: true
+          schema:
+            $ref: "#/definitions/BuildRequest"
+      responses:
+        "200":
+          description: |
+            登録されたビルドを追加する
+          schema:
+            $ref: "#/definitions/BuildInfo"
+  /builds/{buildId}:
+    get:
+      tags: [build]
+      security: []
+      description: |
+        指定IDのビルドを取得する
+      parameters:
+      - $ref : "#/parameters/api_key"
+      - name: buildId
+        in: path
+        description: |
+          ビルドID
+        required: true
+        type: string
+      responses:
+        "200":
+          description: |
+            ビルド情報
+          schema:
+            $ref: "#/definitions/BuildInfo"
+    patch:
+      tags: [build]
+      security: []
+      description: |
+        指定IDのビルドを更新する
+      parameters:
+      - $ref : "#/parameters/api_key"
+      - name: buildId
+        in: path
+        description: |
+          ビルドID
+        required: true
+        type: string
+      - name: newObject
+        in: body
+        description: |
+          差分更新するビルド情報
+
+          値がsetされているパラメータのみを上書きする。
+          変更不可なパラメータに対しては何も行なわない（エラーとも扱わない）
+
+        required: true
+        schema:
+          $ref: "#/definitions/BuildInfo"
+      responses:
+        "200":
+          description: |
+            ビルド情報
+          schema:
+            $ref: "#/definitions/BuildInfo"
+  /builds/{buildId}/artifact:
+    get:
+      tags: [build]
+      security: []
+      description: |
+        指定IDのビルド成果物を取得する
+      parameters:
+      - $ref : "#/parameters/api_key"
+      - name: buildId
+        in: path
+        description: |
+          ビルドID
+        required: true
+        type: string
+      responses:
+        "302":
+          description: |
+            ビルド成果物(GCSのダウンロードURLにリダイレクトされる)
+
+################################################################################
+#
+# Machine API
+#
+################################################################################
+  /machine:
+    get:
+      tags: [machine]
+      security: []
+      description: |
+        APIキーに紐付いたビルドマシンを取得する
+      parameters:
+        - $ref : "#/parameters/api_key"
+      responses:
+        "200":
+          description: |
+            ビルドマシン情報
+          schema:
+            $ref: "#/definitions/MachineInfo"
+    post:
+      tags: [machine]
+      security: []
+      description: |
+        APIキーに紐付いたビルドマシンを作成する
+        既に作成済みの場合、何も行なわない
+      parameters:
+        - $ref : "#/parameters/api_key"
+        - name: payload
+          in: body
+          schema:
+            $ref: "#/definitions/MachineRequest"
+      responses:
+        "200":
+          description: |
+            ビルドマシン情報
+          schema:
+            $ref: "#/definitions/MachineInfo"
+    delete:
+      tags: [machine]
+      security: []
+      description: |
+        APIキーに紐付いたビルドマシンを削除する
+      parameters:
+        - $ref : "#/parameters/api_key"
+      responses:
+        "200":
+          description: |
+            ステータスコードのみを返却する
+  /machine/startupscript:
+    get:
+      tags: [machine]
+      security: []
+      description: |
+        APIキーに紐付いたビルドマシン用の起動スクリプトを取得する
+      parameters:
+        - $ref : "#/parameters/api_key"
+      responses:
+        "200":
+          description: |
+            ビルドマシン用の起動スクリプトがplain-textで返却される
+
+    post:
+      tags: [machine]
+      security: []
+      description: |
+        APIキーに紐付いたビルドマシン用の起動スクリプトを設定する。
+      parameters:
+        - $ref : "#/parameters/api_key"
+        - name: script
+          in: formData
+          description: |
+            起動時の実行スクリプト
+          required: true
+          type: string
+          minLength: 1
+      responses:
+        "200":
+          description: |
+            登録に成功した場合ステータスコードのみを返却する
+
+  /machine/boot:
+    post:
+      tags: [machine]
+      security: []
+      description: |
+        APIキーに紐付いたビルドマシン用を起動する。
+        主にgithubのpushに反応し、事前にビルドマシンを起動するために使用する。
+      parameters:
+        - $ref : "#/parameters/api_key"
+      responses:
+        "200":
+          description: |
+            登録に成功した場合ステータスコードのみを返却する
+################################################################################
+#
+# Debug API
+#
+################################################################################
+
+  /debug/swagger:
+    get:
+      tags: [debug]
+      security: []
+      description: |
+        swagger.json
+      responses:
+        "200":
+          description: |
+            swagger.json
+parameters:
+  api_key:
+    description: |
+      クライアントの妥当性を検証するためのAPIKey
+
+      発行されたAPIKey以外はAPIを呼び出すことはできない。
+    name: "key"
+    in: query
+    type: string
+    required: true
+  queue_retry_count:
+    description: |
+      GAE/Go標準TaskQueueの実行数
+    name: "X-AppEngine-TaskRetryCount"
+    in: header
+    type: integer
+definitions:
+  MachineRequest:
+    description: |
+      ビルドマシンのスペック要求
+    type: object
+    properties:
+      zone:
+        description: |
+          作成されるZone指定
+          デフォルトでは "us-central1-b" が使用される
+        type: string
+      cpu:
+        description: |
+          リクエストされるvCPU数
+          デフォルトで24 vCPU使用される
+        type: integer
+      ram:
+        description: |
+          リクエストされるRAM(GB)
+          デフォルトで64GB使用される
+        type: number
+      storage:
+        description: |
+          リクエストされるストレージ容量(GB)
+          デフォルトで48GB使用される
+        type: number
+  MachineState:
+    description: |
+      ビルドマシンの現在の状態
+    type: string
+    enum:
+      - Running   # 実行中
+      - Shutdown  # シャットダウン
+      - None      # まだ存在しない
+  MachineInfo:
+    description: |
+      ビルドマシン情報
+
+      APIキーごとに1ビルドマシンが割り当てられる。
+      そのため、API的にはビルドマシンは1つとなる。
+    type: object
+    properties:
+      id:
+        description: |
+          一意に割り当てられるビルドマシンID
+        type: string
+      state:
+        $ref: "#/definitions/MachineState"
+      Zone:
+        description: |
+          マシンが配置されているZone
+          Zoneを移行する場合は削除 -> 再生成をメンテナンスする必要がある。
+        type: string
+  BuildRepository:
+    description: |
+      ビルド対象のソースリポジトリを示す
+    type: object
+    properties:
+      git:
+        description: |
+          gitリポジトリのpathを示す。
+          git cloneとして有効な値が設定される。
+        type: string
+      gitRevision:
+        description: |
+          gitリポジトリのcheckout対象を示す。
+          git checkout として有効な値が設定される。
+          checkoutできれば良いので、branchやtagも可能。
+        type: string
+  EnvironmentValue:
+    description: |
+      環境変数を示すオブジェクト
+    type: object
+    required:
+      - name
+      - value
+    properties:
+      name:
+        description: |
+          環境変数名
+        type: string
+      value:
+        description: |
+          環境変数値
+        type: string
+  BuildRequest:
+    description: |
+      1ビルドリクエストを示す
+    type: object
+    required:
+      - config
+    properties:
+      repository:
+        $ref: "#/definitions/BuildRepository"
+      config:
+        description: |
+          ビルド設定を記述した "timebooster.yml" 本体情報
+        type: string
+      environment:
+        description: |
+          コンテナに適用する環境変数一覧
+          conofigファイルの記述と両方が適用される。
+          同じ設定を複数箇所に記述した場合の挙動はDockerのenvオプションに従う。
+        type: array
+        items:
+          $ref: "#/definitions/EnvironmentValue"
+
+  BuildState:
+    description: |
+      現在のビルド状態を示す
+    type: string
+    enum:
+      - Pending   # 保留状態
+      - Building  # ビルド中
+      - Timeout   # ビルドタイムアウト
+      - Failed    # ビルド失敗
+      - Completed # ビルド完了
+  BuildInfo:
+    description: |
+      現在のビルド情報を示す
+    type: object
+    required:
+      - id
+      - config
+    properties:
+      id:
+        description: |
+          一意にサーバーで割り当てられたID
+        type: string
+      state:
+        $ref: "#/definitions/BuildState"
+      repository:
+        $ref: "#/definitions/BuildRepository"
+      config:
+        description: |
+          ビルド設定を記述した "timebooster.yml" 本体情報
+        type: string
+      startDate:
+        description: |
+          ビルド開始日時（Unixミリ秒）
+        type: integer
+        format: int64
+      environment:
+        description: |
+          コンテナに適用する環境変数一覧
+          conofigファイルの記述と両方が適用される。
+          同じ設定を複数箇所に記述した場合の挙動はDockerのenvオプションに従う。
+        type: array
+        items:
+          $ref: "#/definitions/EnvironmentValue"
+  BuildLog:
+    description: |
+      ビルドのコマンドラインログを示す。
+      1行ごとに1オブジェクトが生成される。
+    type: object
+    required:
+      - index
+      - date
+      - text
+    properties:
+      index:
+        description: |
+          ログ番号（1ビルドごとに連番で生成される）
+        type: integer
+      date:
+        description: |
+          ログ時刻(Unixミリ秒)
+        type: integer
+        format: int64
+      text:
+        description: |
+          1行ログ
+        type: string
+  ApiError:
+    description: |
+      APIのエラーを定義する。
+
+      API実行失敗時、2xx以外のステータスの場合は必ずこのModelを返却する。
+    type: object
+    properties:
+      code:
+        type: string
+        enum:
+          - NotImplements      # 未実装の場合に返却される
+          - AuthFailed         # ログインされていない場合に返却される
+          - DataConflict       # 何かしらのデータが競合した
+          - DataModifyFailed   # 何かしらのデータ変更に失敗した
+          - ParameterError     # APIのパラメータが不足しているか、不正である
+          - Unknown            # その他不明なエラーが発生した
+      message:
+        type: string
+    required:
+      - code
+      - message
+
+# This section requires all requests to any path to require an API key.
+securityDefinitions:
+  # This section configures basic authentication with an API key.
+  api_key:
+    description: |
+      Google Developer Consoleにて発行されるAPIキーを指定する。
+      このAPIキーを用いてクライアントを識別する。
+
+      QueryStringに"key"を予約しているため、他のAPIでは使用することはできない。
+    type: "apiKey"
+    name: "key"
+    in: "query"
