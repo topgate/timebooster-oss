@@ -5,7 +5,7 @@
 export TIMEBOOSTER_TOOL_VERSION=stable
 
 ### 実行タスク
-cd $HOME
+cd /root
 
 ## メタデータ設定
 export TIMEBOOSTER_PROJECT_ID=`gcloud config get-value project 2> /dev/null | tr -d "\n"`
