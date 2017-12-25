@@ -12,11 +12,8 @@ RUN apt-get install -y apt-transport-https curl wget zip unzip git-core gcc jq \
   && apt-get update \
   && apt-get install -y google-cloud-sdk
 
-# setup GAE/Go
-ENV PATH="/root/tools/go_appengine:$PATH"
-RUN  wget "https://storage.googleapis.com/appengine-sdks/featured/go_appengine_sdk_linux_amd64-1.9.48.zip" -O $HOME/tools/sdk.zip \
-  && unzip -d $HOME/tools/ $HOME/tools/sdk.zip > /dev/null \
-  && rm $HOME/tools/sdk.zip \
+# install GAE/Go
+RUN  apt-get install -y google-cloud-sdk-app-engine-go \
   && wget https://bootstrap.pypa.io/get-pip.py -O $HOME/get-pip.py \
   && python $HOME/get-pip.py \
   && rm $HOME/get-pip.py
@@ -33,21 +30,8 @@ RUN  mkdir $HOME/tools/gopath \
   && go get -f -u github.com/eaglesakura/prjdep \
   && rm $HOME/golang.temp.tar.gz
 
-# install python
-ENV PATH="/opt/python/2.7.9/bin:$PATH"
-RUN  apt-get install -y make gcc \
-  && apt-get install -y libssl-dev zlib1g-dev libreadline6-dev sqlite3 libsqlite3-dev \
-  && wget https://www.python.org/ftp/python/2.7.9/Python-2.7.9.tgz -O $HOME/tools/python.zip \
-  && tar xovfz $HOME/tools/python.zip -C "$HOME/tools/" > /dev/null \
-  && cd $HOME/tools/Python-2.7.9 \
-  && ./configure --prefix=/opt/python/2.7.9 > /dev/null \
-  && make  > /dev/null \
-  && make install \
-  && rm $HOME/tools/python.zip \
-  && cd /root \
-  && rm -rf $HOME/tools/Python-2.7.9
-
 # setup build env
-ENV GAE_GO_HOME=/root/tools/go_appengine \
-    GOROOT="/root/tools/go_appengine/goroot" \
-    GOBIN="/root/tools/go_appengine/bin"
+RUN for py in `find /usr/lib/google-cloud-sdk/platform/google_appengine -name "*.py"`; do chmod +x $py; done
+ENV PATH="/usr/lib/google-cloud-sdk/platform/google_appengine:/usr/lib/google-cloud-sdk/platform/google_appengine/goroot-1.8/bin:$PATH" \
+    GAE_GO_HOME=/usr/lib/google-cloud-sdk/platform/google_appengine \
+    GOROOT="/usr/lib/google-cloud-sdk/platform/google_appengine/goroot-1.8"
