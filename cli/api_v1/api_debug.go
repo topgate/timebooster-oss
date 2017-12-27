@@ -22,18 +22,19 @@ func NewDebugApi() *DebugApi {
 	}
 }
 
-/**
- *
- * swagger.json
- */
+/*
+
+   swagger.json
+*/
 type DebugApiDebugSwaggerGetRequest struct {
 }
 
-/**
- *
- * swagger.json
- * @return void
- */
+/*
+
+   swagger.json
+
+     result: void
+*/
 func (it *DebugApi) DebugSwaggerGet(_client swagger.FetchClient, _request *DebugApiDebugSwaggerGetRequest, result interface{}) error {
 
 	// create path and map variables

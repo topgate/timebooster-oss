@@ -3,7 +3,7 @@
   "info" : {
     "description" : "Timebooster ビルド管理サーバーAPI仕様\n",
     "version" : "1.0",
-    "title" : "Timebooster / Wed Oct 25 08:41:16 UTC 2017"
+    "title" : "Timebooster / 2017-12-27 15:04:13"
   },
   "basePath" : "/api/v1",
   "schemes" : [ "http", "https" ],
