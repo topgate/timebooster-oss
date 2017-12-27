@@ -17,12 +17,17 @@
     },
     {
       "ImportPath": "github.com/eaglesakura/swagger-go-core",
-      "Rev": "5afa48b188d40455feddf86739a39369131d0257",
+      "Rev": "5b356bbc802f7673cf29a59adaa6187eb412d57c",
       "Lang": "golang"
     },
     {
       "ImportPath": "github.com/go-yaml/yaml",
       "Rev": "cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b",
+      "Lang": "golang"
+    },
+    {
+      "ImportPath": "github.com/golang/glog",
+      "Rev": "23def4e6c14b4da8ac2ed8007337bc5eb5007998",
       "Lang": "golang"
     },
     {
