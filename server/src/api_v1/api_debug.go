@@ -10,11 +10,12 @@ import (
 type DebugSwaggerGetParams struct {
 }
 
-/**
- *
- * swagger.json
- * @return void
- */
+/*
+
+
+swagger.json
+ return: void
+*/
 type DebugSwaggerGetHandler func(context swagger.RequestContext, params *DebugSwaggerGetParams) swagger.Responder
 
 func (it *DebugSwaggerGetParams) Valid(factory swagger.ValidatorFactory) bool {

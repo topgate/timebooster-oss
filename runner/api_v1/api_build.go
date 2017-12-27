@@ -22,27 +22,28 @@ func NewBuildApi() *BuildApi {
 	}
 }
 
-/**
- *
- * 指定IDのビルド成果物を取得する
- */
+/*
+
+   指定IDのビルド成果物を取得する
+*/
 type BuildApiBuildsBuildidArtifactGetRequest struct {
-	/**
-	 * クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
-	 */
+	/*
+	   クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+	*/
 	Key *string
 
-	/**
-	 * ビルドID
-	 */
+	/*
+	   ビルドID
+	*/
 	BuildId *string
 }
 
-/**
- *
- * 指定IDのビルド成果物を取得する
- * @return void
- */
+/*
+
+   指定IDのビルド成果物を取得する
+
+     result: void
+*/
 func (it *BuildApi) BuildsBuildidArtifactGet(_client swagger.FetchClient, _request *BuildApiBuildsBuildidArtifactGetRequest, result interface{}) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
 		errors.New(0, "Missing the required parameter 'Key' when calling BuildsBuildidArtifactGet")
@@ -66,27 +67,28 @@ func (it *BuildApi) BuildsBuildidArtifactGet(_client swagger.FetchClient, _reque
 	return _client.Fetch(result)
 }
 
-/**
- *
- * 指定IDのビルドを取得する
- */
+/*
+
+   指定IDのビルドを取得する
+*/
 type BuildApiBuildsBuildidGetRequest struct {
-	/**
-	 * クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
-	 */
+	/*
+	   クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+	*/
 	Key *string
 
-	/**
-	 * ビルドID
-	 */
+	/*
+	   ビルドID
+	*/
 	BuildId *string
 }
 
-/**
- *
- * 指定IDのビルドを取得する
- * @return BuildInfo
- */
+/*
+
+   指定IDのビルドを取得する
+
+     result: BuildInfo
+*/
 func (it *BuildApi) BuildsBuildidGet(_client swagger.FetchClient, _request *BuildApiBuildsBuildidGetRequest, result *BuildInfo) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
 		errors.New(0, "Missing the required parameter 'Key' when calling BuildsBuildidGet")
@@ -110,32 +112,33 @@ func (it *BuildApi) BuildsBuildidGet(_client swagger.FetchClient, _request *Buil
 	return _client.Fetch(result)
 }
 
-/**
- *
- * 指定IDのビルドを更新する
- */
+/*
+
+   指定IDのビルドを更新する
+*/
 type BuildApiBuildsBuildidPatchRequest struct {
-	/**
-	 * クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
-	 */
+	/*
+	   クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+	*/
 	Key *string
 
-	/**
-	 * ビルドID
-	 */
+	/*
+	   ビルドID
+	*/
 	BuildId *string
 
-	/**
-	 * 差分更新するビルド情報  値がsetされているパラメータのみを上書きする。 変更不可なパラメータに対しては何も行なわない（エラーとも扱わない）
-	 */
+	/*
+	   差分更新するビルド情報  値がsetされているパラメータのみを上書きする。 変更不可なパラメータに対しては何も行なわない（エラーとも扱わない）
+	*/
 	NewObject *BuildInfo
 }
 
-/**
- *
- * 指定IDのビルドを更新する
- * @return BuildInfo
- */
+/*
+
+   指定IDのビルドを更新する
+
+     result: BuildInfo
+*/
 func (it *BuildApi) BuildsBuildidPatch(_client swagger.FetchClient, _request *BuildApiBuildsBuildidPatchRequest, result *BuildInfo) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
 		errors.New(0, "Missing the required parameter 'Key' when calling BuildsBuildidPatch")
@@ -166,27 +169,28 @@ func (it *BuildApi) BuildsBuildidPatch(_client swagger.FetchClient, _request *Bu
 	return _client.Fetch(result)
 }
 
-/**
- *
- * 指定条件のビルドを取得する
- */
+/*
+
+   指定条件のビルドを取得する
+*/
 type BuildApiBuildsGetRequest struct {
-	/**
-	 * クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
-	 */
+	/*
+	   クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+	*/
 	Key *string
 
-	/**
-	 * 列挙するビルドステータス
-	 */
+	/*
+	   列挙するビルドステータス
+	*/
 	State *string
 }
 
-/**
- *
- * 指定条件のビルドを取得する
- * @return BuildInfoArray
- */
+/*
+
+   指定条件のビルドを取得する
+
+     result: BuildInfoArray
+*/
 func (it *BuildApi) BuildsGet(_client swagger.FetchClient, _request *BuildApiBuildsGetRequest, result *BuildInfoArray) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
 		errors.New(0, "Missing the required parameter 'Key' when calling BuildsGet")
@@ -212,27 +216,28 @@ func (it *BuildApi) BuildsGet(_client swagger.FetchClient, _request *BuildApiBui
 	return _client.Fetch(result)
 }
 
-/**
- *
- * 新規にビルドを開始させる。
- */
+/*
+
+   新規にビルドを開始させる。
+*/
 type BuildApiBuildsPostRequest struct {
-	/**
-	 * クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
-	 */
+	/*
+	   クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+	*/
 	Key *string
 
-	/**
-	 * ビルド情報
-	 */
+	/*
+	   ビルド情報
+	*/
 	Payload *BuildRequest
 }
 
-/**
- *
- * 新規にビルドを開始させる。
- * @return BuildInfo
- */
+/*
+
+   新規にビルドを開始させる。
+
+     result: BuildInfo
+*/
 func (it *BuildApi) BuildsPost(_client swagger.FetchClient, _request *BuildApiBuildsPostRequest, result *BuildInfo) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
 		errors.New(0, "Missing the required parameter 'Key' when calling BuildsPost")

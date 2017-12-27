@@ -14,13 +14,14 @@ type BuildsBuildidArtifactGetParams struct {
 	BuildId *string
 }
 
-/**
- *
- * 指定IDのビルド成果物を取得する
- * @param Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
- * @param BuildId ビルドID
- * @return void
- */
+/*
+
+
+指定IDのビルド成果物を取得する
+ param: Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+ param: BuildId ビルドID
+ return: void
+*/
 type BuildsBuildidArtifactGetHandler func(context swagger.RequestContext, params *BuildsBuildidArtifactGetParams) swagger.Responder
 
 func (it *BuildsBuildidArtifactGetParams) Valid(factory swagger.ValidatorFactory) bool {
@@ -62,13 +63,14 @@ type BuildsBuildidGetParams struct {
 	BuildId *string
 }
 
-/**
- *
- * 指定IDのビルドを取得する
- * @param Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
- * @param BuildId ビルドID
- * @return BuildInfo
- */
+/*
+
+
+指定IDのビルドを取得する
+ param: Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+ param: BuildId ビルドID
+ return: BuildInfo
+*/
 type BuildsBuildidGetHandler func(context swagger.RequestContext, params *BuildsBuildidGetParams) swagger.Responder
 
 func (it *BuildsBuildidGetParams) Valid(factory swagger.ValidatorFactory) bool {
@@ -112,14 +114,15 @@ type BuildsBuildidPatchParams struct {
 	NewObject *BuildInfo
 }
 
-/**
- *
- * 指定IDのビルドを更新する
- * @param Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
- * @param BuildId ビルドID
- * @param NewObject 差分更新するビルド情報  値がsetされているパラメータのみを上書きする。 変更不可なパラメータに対しては何も行なわない（エラーとも扱わない）
- * @return BuildInfo
- */
+/*
+
+
+指定IDのビルドを更新する
+ param: Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+ param: BuildId ビルドID
+ param: NewObject 差分更新するビルド情報  値がsetされているパラメータのみを上書きする。 変更不可なパラメータに対しては何も行なわない（エラーとも扱わない）
+ return: BuildInfo
+*/
 type BuildsBuildidPatchHandler func(context swagger.RequestContext, params *BuildsBuildidPatchParams) swagger.Responder
 
 func (it *BuildsBuildidPatchParams) Valid(factory swagger.ValidatorFactory) bool {
@@ -169,13 +172,14 @@ type BuildsGetParams struct {
 	State *string
 }
 
-/**
- *
- * 指定条件のビルドを取得する
- * @param Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
- * @param State 列挙するビルドステータス
- * @return BuildInfoArray
- */
+/*
+
+
+指定条件のビルドを取得する
+ param: Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+ param: State 列挙するビルドステータス
+ return: BuildInfoArray
+*/
 type BuildsGetHandler func(context swagger.RequestContext, params *BuildsGetParams) swagger.Responder
 
 func (it *BuildsGetParams) Valid(factory swagger.ValidatorFactory) bool {
@@ -216,13 +220,14 @@ type BuildsPostParams struct {
 	Payload *BuildRequest
 }
 
-/**
- *
- * 新規にビルドを開始させる。
- * @param Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
- * @param Payload ビルド情報
- * @return BuildInfo
- */
+/*
+
+
+新規にビルドを開始させる。
+ param: Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+ param: Payload ビルド情報
+ return: BuildInfo
+*/
 type BuildsPostHandler func(context swagger.RequestContext, params *BuildsPostParams) swagger.Responder
 
 func (it *BuildsPostParams) Valid(factory swagger.ValidatorFactory) bool {

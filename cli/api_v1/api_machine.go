@@ -22,22 +22,23 @@ func NewMachineApi() *MachineApi {
 	}
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシン用を起動する。 主にgithubのpushに反応し、事前にビルドマシンを起動するために使用する。
- */
+/*
+
+   APIキーに紐付いたビルドマシン用を起動する。 主にgithubのpushに反応し、事前にビルドマシンを起動するために使用する。
+*/
 type MachineApiMachineBootPostRequest struct {
-	/**
-	 * クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
-	 */
+	/*
+	   クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+	*/
 	Key *string
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシン用を起動する。 主にgithubのpushに反応し、事前にビルドマシンを起動するために使用する。
- * @return void
- */
+/*
+
+   APIキーに紐付いたビルドマシン用を起動する。 主にgithubのpushに反応し、事前にビルドマシンを起動するために使用する。
+
+     result: void
+*/
 func (it *MachineApi) MachineBootPost(_client swagger.FetchClient, _request *MachineApiMachineBootPostRequest, result interface{}) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
 		errors.New(0, "Missing the required parameter 'Key' when calling MachineBootPost")
@@ -57,22 +58,23 @@ func (it *MachineApi) MachineBootPost(_client swagger.FetchClient, _request *Mac
 	return _client.Fetch(result)
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシンを削除する
- */
+/*
+
+   APIキーに紐付いたビルドマシンを削除する
+*/
 type MachineApiMachineDeleteRequest struct {
-	/**
-	 * クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
-	 */
+	/*
+	   クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+	*/
 	Key *string
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシンを削除する
- * @return void
- */
+/*
+
+   APIキーに紐付いたビルドマシンを削除する
+
+     result: void
+*/
 func (it *MachineApi) MachineDelete(_client swagger.FetchClient, _request *MachineApiMachineDeleteRequest, result interface{}) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
 		errors.New(0, "Missing the required parameter 'Key' when calling MachineDelete")
@@ -92,22 +94,23 @@ func (it *MachineApi) MachineDelete(_client swagger.FetchClient, _request *Machi
 	return _client.Fetch(result)
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシンを取得する
- */
+/*
+
+   APIキーに紐付いたビルドマシンを取得する
+*/
 type MachineApiMachineGetRequest struct {
-	/**
-	 * クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
-	 */
+	/*
+	   クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+	*/
 	Key *string
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシンを取得する
- * @return MachineInfo
- */
+/*
+
+   APIキーに紐付いたビルドマシンを取得する
+
+     result: MachineInfo
+*/
 func (it *MachineApi) MachineGet(_client swagger.FetchClient, _request *MachineApiMachineGetRequest, result *MachineInfo) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
 		errors.New(0, "Missing the required parameter 'Key' when calling MachineGet")
@@ -127,27 +130,28 @@ func (it *MachineApi) MachineGet(_client swagger.FetchClient, _request *MachineA
 	return _client.Fetch(result)
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシンを作成する 既に作成済みの場合、何も行なわない
- */
+/*
+
+   APIキーに紐付いたビルドマシンを作成する 既に作成済みの場合、何も行なわない
+*/
 type MachineApiMachinePostRequest struct {
-	/**
-	 * クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
-	 */
+	/*
+	   クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+	*/
 	Key *string
 
-	/**
-	 *
+	/*
+
 	 */
 	Payload *MachineRequest
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシンを作成する 既に作成済みの場合、何も行なわない
- * @return MachineInfo
- */
+/*
+
+   APIキーに紐付いたビルドマシンを作成する 既に作成済みの場合、何も行なわない
+
+     result: MachineInfo
+*/
 func (it *MachineApi) MachinePost(_client swagger.FetchClient, _request *MachineApiMachinePostRequest, result *MachineInfo) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
 		errors.New(0, "Missing the required parameter 'Key' when calling MachinePost")
@@ -174,22 +178,23 @@ func (it *MachineApi) MachinePost(_client swagger.FetchClient, _request *Machine
 	return _client.Fetch(result)
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシン用の起動スクリプトを取得する
- */
+/*
+
+   APIキーに紐付いたビルドマシン用の起動スクリプトを取得する
+*/
 type MachineApiMachineStartupscriptGetRequest struct {
-	/**
-	 * クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
-	 */
+	/*
+	   クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+	*/
 	Key *string
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシン用の起動スクリプトを取得する
- * @return void
- */
+/*
+
+   APIキーに紐付いたビルドマシン用の起動スクリプトを取得する
+
+     result: void
+*/
 func (it *MachineApi) MachineStartupscriptGet(_client swagger.FetchClient, _request *MachineApiMachineStartupscriptGetRequest, result interface{}) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
 		errors.New(0, "Missing the required parameter 'Key' when calling MachineStartupscriptGet")
@@ -209,27 +214,28 @@ func (it *MachineApi) MachineStartupscriptGet(_client swagger.FetchClient, _requ
 	return _client.Fetch(result)
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシン用の起動スクリプトを設定する。
- */
+/*
+
+   APIキーに紐付いたビルドマシン用の起動スクリプトを設定する。
+*/
 type MachineApiMachineStartupscriptPostRequest struct {
-	/**
-	 * クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
-	 */
+	/*
+	   クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+	*/
 	Key *string
 
-	/**
-	 * 起動時の実行スクリプト
-	 */
+	/*
+	   起動時の実行スクリプト
+	*/
 	Script *string
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシン用の起動スクリプトを設定する。
- * @return void
- */
+/*
+
+   APIキーに紐付いたビルドマシン用の起動スクリプトを設定する。
+
+     result: void
+*/
 func (it *MachineApi) MachineStartupscriptPost(_client swagger.FetchClient, _request *MachineApiMachineStartupscriptPostRequest, result interface{}) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
 		errors.New(0, "Missing the required parameter 'Key' when calling MachineStartupscriptPost")

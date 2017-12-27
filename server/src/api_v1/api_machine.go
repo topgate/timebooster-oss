@@ -12,12 +12,13 @@ type MachineBootPostParams struct {
 	Key *string
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシン用を起動する。 主にgithubのpushに反応し、事前にビルドマシンを起動するために使用する。
- * @param Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
- * @return void
- */
+/*
+
+
+APIキーに紐付いたビルドマシン用を起動する。 主にgithubのpushに反応し、事前にビルドマシンを起動するために使用する。
+ param: Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+ return: void
+*/
 type MachineBootPostHandler func(context swagger.RequestContext, params *MachineBootPostParams) swagger.Responder
 
 func (it *MachineBootPostParams) Valid(factory swagger.ValidatorFactory) bool {
@@ -49,12 +50,13 @@ type MachineDeleteParams struct {
 	Key *string
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシンを削除する
- * @param Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
- * @return void
- */
+/*
+
+
+APIキーに紐付いたビルドマシンを削除する
+ param: Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+ return: void
+*/
 type MachineDeleteHandler func(context swagger.RequestContext, params *MachineDeleteParams) swagger.Responder
 
 func (it *MachineDeleteParams) Valid(factory swagger.ValidatorFactory) bool {
@@ -86,12 +88,13 @@ type MachineGetParams struct {
 	Key *string
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシンを取得する
- * @param Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
- * @return MachineInfo
- */
+/*
+
+
+APIキーに紐付いたビルドマシンを取得する
+ param: Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+ return: MachineInfo
+*/
 type MachineGetHandler func(context swagger.RequestContext, params *MachineGetParams) swagger.Responder
 
 func (it *MachineGetParams) Valid(factory swagger.ValidatorFactory) bool {
@@ -125,13 +128,14 @@ type MachinePostParams struct {
 	Payload *MachineRequest
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシンを作成する 既に作成済みの場合、何も行なわない
- * @param Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
- * @param Payload
- * @return MachineInfo
- */
+/*
+
+
+APIキーに紐付いたビルドマシンを作成する 既に作成済みの場合、何も行なわない
+ param: Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+ param: Payload
+ return: MachineInfo
+*/
 type MachinePostHandler func(context swagger.RequestContext, params *MachinePostParams) swagger.Responder
 
 func (it *MachinePostParams) Valid(factory swagger.ValidatorFactory) bool {
@@ -171,12 +175,13 @@ type MachineStartupscriptGetParams struct {
 	Key *string
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシン用の起動スクリプトを取得する
- * @param Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
- * @return void
- */
+/*
+
+
+APIキーに紐付いたビルドマシン用の起動スクリプトを取得する
+ param: Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+ return: void
+*/
 type MachineStartupscriptGetHandler func(context swagger.RequestContext, params *MachineStartupscriptGetParams) swagger.Responder
 
 func (it *MachineStartupscriptGetParams) Valid(factory swagger.ValidatorFactory) bool {
@@ -210,13 +215,14 @@ type MachineStartupscriptPostParams struct {
 	Script *string
 }
 
-/**
- *
- * APIキーに紐付いたビルドマシン用の起動スクリプトを設定する。
- * @param Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
- * @param Script 起動時の実行スクリプト
- * @return void
- */
+/*
+
+
+APIキーに紐付いたビルドマシン用の起動スクリプトを設定する。
+ param: Key クライアントの妥当性を検証するためのAPIKey  発行されたAPIKey以外はAPIを呼び出すことはできない。
+ param: Script 起動時の実行スクリプト
+ return: void
+*/
 type MachineStartupscriptPostHandler func(context swagger.RequestContext, params *MachineStartupscriptPostParams) swagger.Responder
 
 func (it *MachineStartupscriptPostParams) Valid(factory swagger.ValidatorFactory) bool {
