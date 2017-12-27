@@ -46,10 +46,10 @@ type BuildApiBuildsBuildidArtifactGetRequest struct {
 */
 func (it *BuildApi) BuildsBuildidArtifactGet(_client swagger.FetchClient, _request *BuildApiBuildsBuildidArtifactGetRequest, result interface{}) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'Key' when calling BuildsBuildidArtifactGet")
+		return errors.New(0, "Missing the required parameter 'Key' when calling BuildsBuildidArtifactGet")
 	}
 	if !_client.NewValidator(_request.BuildId, _request.BuildId == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'BuildId' when calling BuildsBuildidArtifactGet")
+		return errors.New(0, "Missing the required parameter 'BuildId' when calling BuildsBuildidArtifactGet")
 	}
 
 	// create path and map variables
@@ -91,10 +91,10 @@ type BuildApiBuildsBuildidGetRequest struct {
 */
 func (it *BuildApi) BuildsBuildidGet(_client swagger.FetchClient, _request *BuildApiBuildsBuildidGetRequest, result *BuildInfo) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'Key' when calling BuildsBuildidGet")
+		return errors.New(0, "Missing the required parameter 'Key' when calling BuildsBuildidGet")
 	}
 	if !_client.NewValidator(_request.BuildId, _request.BuildId == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'BuildId' when calling BuildsBuildidGet")
+		return errors.New(0, "Missing the required parameter 'BuildId' when calling BuildsBuildidGet")
 	}
 
 	// create path and map variables
@@ -141,13 +141,13 @@ type BuildApiBuildsBuildidPatchRequest struct {
 */
 func (it *BuildApi) BuildsBuildidPatch(_client swagger.FetchClient, _request *BuildApiBuildsBuildidPatchRequest, result *BuildInfo) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'Key' when calling BuildsBuildidPatch")
+		return errors.New(0, "Missing the required parameter 'Key' when calling BuildsBuildidPatch")
 	}
 	if !_client.NewValidator(_request.BuildId, _request.BuildId == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'BuildId' when calling BuildsBuildidPatch")
+		return errors.New(0, "Missing the required parameter 'BuildId' when calling BuildsBuildidPatch")
 	}
 	if !_client.NewValidator(_request.NewObject, _request.NewObject == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'NewObject' when calling BuildsBuildidPatch")
+		return errors.New(0, "Missing the required parameter 'NewObject' when calling BuildsBuildidPatch")
 	}
 
 	// create path and map variables
@@ -193,10 +193,10 @@ type BuildApiBuildsGetRequest struct {
 */
 func (it *BuildApi) BuildsGet(_client swagger.FetchClient, _request *BuildApiBuildsGetRequest, result *BuildInfoArray) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'Key' when calling BuildsGet")
+		return errors.New(0, "Missing the required parameter 'Key' when calling BuildsGet")
 	}
 	if !_client.NewValidator(_request.State, _request.State == nil).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'State' when calling BuildsGet")
+		return errors.New(0, "Missing the required parameter 'State' when calling BuildsGet")
 	}
 
 	// create path and map variables
@@ -240,10 +240,10 @@ type BuildApiBuildsPostRequest struct {
 */
 func (it *BuildApi) BuildsPost(_client swagger.FetchClient, _request *BuildApiBuildsPostRequest, result *BuildInfo) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'Key' when calling BuildsPost")
+		return errors.New(0, "Missing the required parameter 'Key' when calling BuildsPost")
 	}
 	if !_client.NewValidator(_request.Payload, _request.Payload == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'Payload' when calling BuildsPost")
+		return errors.New(0, "Missing the required parameter 'Payload' when calling BuildsPost")
 	}
 
 	// create path and map variables

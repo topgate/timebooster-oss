@@ -41,7 +41,7 @@ type MachineApiMachineBootPostRequest struct {
 */
 func (it *MachineApi) MachineBootPost(_client swagger.FetchClient, _request *MachineApiMachineBootPostRequest, result interface{}) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'Key' when calling MachineBootPost")
+		return errors.New(0, "Missing the required parameter 'Key' when calling MachineBootPost")
 	}
 
 	// create path and map variables
@@ -77,7 +77,7 @@ type MachineApiMachineDeleteRequest struct {
 */
 func (it *MachineApi) MachineDelete(_client swagger.FetchClient, _request *MachineApiMachineDeleteRequest, result interface{}) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'Key' when calling MachineDelete")
+		return errors.New(0, "Missing the required parameter 'Key' when calling MachineDelete")
 	}
 
 	// create path and map variables
@@ -113,7 +113,7 @@ type MachineApiMachineGetRequest struct {
 */
 func (it *MachineApi) MachineGet(_client swagger.FetchClient, _request *MachineApiMachineGetRequest, result *MachineInfo) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'Key' when calling MachineGet")
+		return errors.New(0, "Missing the required parameter 'Key' when calling MachineGet")
 	}
 
 	// create path and map variables
@@ -154,10 +154,10 @@ type MachineApiMachinePostRequest struct {
 */
 func (it *MachineApi) MachinePost(_client swagger.FetchClient, _request *MachineApiMachinePostRequest, result *MachineInfo) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'Key' when calling MachinePost")
+		return errors.New(0, "Missing the required parameter 'Key' when calling MachinePost")
 	}
 	if !_client.NewValidator(_request.Payload, _request.Payload == nil).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'Payload' when calling MachinePost")
+		return errors.New(0, "Missing the required parameter 'Payload' when calling MachinePost")
 	}
 
 	// create path and map variables
@@ -197,7 +197,7 @@ type MachineApiMachineStartupscriptGetRequest struct {
 */
 func (it *MachineApi) MachineStartupscriptGet(_client swagger.FetchClient, _request *MachineApiMachineStartupscriptGetRequest, result interface{}) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'Key' when calling MachineStartupscriptGet")
+		return errors.New(0, "Missing the required parameter 'Key' when calling MachineStartupscriptGet")
 	}
 
 	// create path and map variables
@@ -238,10 +238,10 @@ type MachineApiMachineStartupscriptPostRequest struct {
 */
 func (it *MachineApi) MachineStartupscriptPost(_client swagger.FetchClient, _request *MachineApiMachineStartupscriptPostRequest, result interface{}) error {
 	if !_client.NewValidator(_request.Key, _request.Key == nil).Required(true).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'Key' when calling MachineStartupscriptPost")
+		return errors.New(0, "Missing the required parameter 'Key' when calling MachineStartupscriptPost")
 	}
 	if !_client.NewValidator(_request.Script, _request.Script == nil).Required(true).MinLength(1).Valid(_client) {
-		errors.New(0, "Missing the required parameter 'Script' when calling MachineStartupscriptPost")
+		return errors.New(0, "Missing the required parameter 'Script' when calling MachineStartupscriptPost")
 	}
 
 	// create path and map variables
