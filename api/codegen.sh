@@ -1,13 +1,12 @@
 #! /bin/bash -eu
-rm -rf server/src/api_v1
-rm -rf cli/api_v1
-rm -rf runner/api_v1
 
 # execute
 swagger-codegen \
   generate --swagger api/swagger.yaml --config api/config.json \
   --output server/src/api_v1 \
-  --target go-server
+  --target go-server \
+  --with-clean true
+
 swagger-codegen \
   generate --swagger api/swagger.yaml --config api/config.json \
   --output server/gae/assets/ \
@@ -16,8 +15,11 @@ swagger-codegen \
 swagger-codegen \
   generate --swagger api/swagger.yaml --config api/config.json \
   --output cli/api_v1 \
-  --target go-client
+  --target go-client \
+  --with-clean true
+
 swagger-codegen \
   generate --swagger api/swagger.yaml --config api/config.json \
   --output runner/api_v1 \
-  --target go-client
+  --target go-client \
+  --with-clean true
